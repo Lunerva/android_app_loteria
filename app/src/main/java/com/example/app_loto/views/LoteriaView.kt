@@ -12,8 +12,10 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -25,6 +27,10 @@ import com.example.app_loto.viewModels.LoteriaViewModel
 @Composable
 fun LoteriaView(viewModel:LoteriaViewModel){
     val lottonNumbers = viewModel.lotoNumbers.value
+
+    val isLoading by viewModel.isLoading
+
+
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement =  Arrangement.Center,
@@ -32,11 +38,20 @@ fun LoteriaView(viewModel:LoteriaViewModel){
     ) {
 
         Text(text = "Loteria", fontSize = 40.sp, fontWeight = FontWeight.Bold)
-        if(lottonNumbers.isEmpty()){
-        }else{
-            LotteyNumbers(lottonNumbers)
+//        if(lottonNumbers.isEmpty()){
+//        }else{
+//            LotteyNumbers(lottonNumbers)
+//        }
+
+        //si isLoading es verdadero, mostramos el CircularProgressIndicator para hacer saber
+        //al usuario que est cargando los demas numeros, ademas se ejecuta LetteyNumbers
+        //para que muestre los numeros conforme vayan saliendo del delay
+        LotteyNumbers(lottonNumbers)
+        if (isLoading) {
+            CircularProgressIndicator()
         }
-        Button(onClick = {  viewModel.generateLotoNumbers() }) {
+        //mandamos a llamar para generar y mostrar los nums de uno en uno
+        Button(onClick = {  viewModel.generateAndShowLotoNumbers() }) {
             Text(text = "Generar", fontSize = 20.sp, fontWeight = FontWeight.Bold)
         }
 
