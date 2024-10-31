@@ -30,8 +30,9 @@ fun LoteriaView(viewModel:LoteriaViewModel){
         verticalArrangement =  Arrangement.Center,
         horizontalAlignment =  Alignment.CenterHorizontally
     ) {
+
+        Text(text = "Loteria", fontSize = 40.sp, fontWeight = FontWeight.Bold)
         if(lottonNumbers.isEmpty()){
-            Text(text = "Loteria", fontSize = 40.sp, fontWeight = FontWeight.Bold)
         }else{
             LotteyNumbers(lottonNumbers)
         }
